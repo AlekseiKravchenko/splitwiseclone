@@ -3,6 +3,8 @@ package SplitwiseClone.services;
 import SplitwiseClone.entity.*;
 import SplitwiseClone.repository.GroupRepository;
 import lombok.*;
+import org.checkerframework.checker.units.qual.A;
+
 import java.util.*;
 
 @NoArgsConstructor
@@ -19,7 +21,9 @@ public class GroupService {
         if (GroupRepository.groupMembers.containsKey(group)) {
             GroupRepository.groupMembers.get(group).add(user);
         } else {
-            System.out.println("This group does not exist");
+            List<User> userAsList = new ArrayList<>();
+            userAsList.add(user);
+            GroupRepository.groupMembers.put(group,userAsList);
         }
     }
     public void deleteUserFromGroup(Group group, User user) {
