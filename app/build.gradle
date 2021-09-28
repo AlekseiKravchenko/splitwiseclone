@@ -9,6 +9,9 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
+    id "com.github.johnrengelman.shadow" version "7.0.0"
+    id 'jacoco'
+    id "io.freefair.lombok" version "6.2.0"
 }
 
 repositories {
@@ -17,14 +20,15 @@ repositories {
 }
 
 dependencies {
-    // Use JUnit test framework.
-    testImplementation 'junit:junit:4.13'
-
-    // This dependency is used by the application.
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
     implementation 'com.google.guava:guava:29.0-jre'
 }
-
 application {
     // Define the main class for the application.
-    mainClass = 'SplitwiseClone.App'
+    mainClassName = 'SplitwiseClone.App'
+}
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
 }
