@@ -3,7 +3,7 @@ stages:
 
 test:
   stage: test
-  image: openjdk:11-jdk-slim
+  image: openjdk:11-jdk
   script:
     - ./gradlew test
     - cat build/reports/jacoco/test/html/index.html
