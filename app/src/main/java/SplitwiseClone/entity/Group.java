@@ -1,7 +1,8 @@
 package SplitwiseClone.entity;
 
-
 import lombok.*;
+
+import java.util.*;
 
 @Getter
 @Setter
@@ -10,11 +11,16 @@ public class Group {
 
     private Long id ;
     private String name;
-    private static Long count = 1L;
+    private Set<User> groupMembers;
 
-    public Group(String name) {
+
+    public Group(String name,Long id) {
+        this.groupMembers = new HashSet<>();
         this.name = name;
-        this.id = count;
-        count++;
+        this.id = id;
+    }
+
+    public void deleteUserFromGroup(Long userId){
+        this.groupMembers.removeIf(user -> user.getId().equals(userId));
     }
 }

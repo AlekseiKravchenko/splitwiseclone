@@ -5,5 +5,5 @@ import SplitwiseClone.entity.User;
 import java.util.*;
 
 public class UserRepository {
-    public static Map<String, User> userMap = new HashMap<>();
+    public static Map<Long, User> userMap = new HashMap<>();
 }

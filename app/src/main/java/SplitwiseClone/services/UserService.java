@@ -1,31 +1,22 @@
 package SplitwiseClone.services;
 
-import SplitwiseClone.entity.*;
+import SplitwiseClone.utils.IdGenerator;
 import SplitwiseClone.repository.*;
 import lombok.NoArgsConstructor;
+import SplitwiseClone.entity.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
+
 
 @NoArgsConstructor
 public class UserService {
     public User createUser (String firstName, String lastName, String email, String phone ) {
-        User user = new User(firstName,lastName,email,phone);
-        UserRepository.userMap.putIfAbsent(email, user);
+        User user = new User(firstName,lastName,email,phone, IdGenerator.generateUserId());
+        UserRepository.userMap.putIfAbsent(user.getId(), user);
         return user;
     }
-    public void deleteUser(String email) {
-        UserRepository.userMap.remove(email);
+    public void deleteUser(Long userId) {
+        UserRepository.userMap.remove(userId);
     }
-    public Map<User, List<Group>> collectUserGroups (User user) {
-        List<Group> userGroupValues = new ArrayList<>();
-        for (Map.Entry<Group, List<User>> entry : GroupRepository.groupMembers.entrySet()) {
-            if (entry.getValue().contains(user)) {
-                userGroupValues.add(entry.getKey());
-            }
-        }
-        GroupRepository.userGroups.put(user, userGroupValues);
-        return  GroupRepository.userGroups;
-    }
+
 }
