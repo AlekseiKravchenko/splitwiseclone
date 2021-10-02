@@ -3,10 +3,10 @@ stages:
 
 test:
   stage: test
-  image: openjdk:11-jdk
+  image: openjdk:11-jdk-slim
   script:
     - chmod +x ./gradlew
-    - cat build/reports/jacoco/test/html/index.html
+    - ./gradlew test
   artifacts:
     reports:
       junit: build/test-results/test/TEST-*.xml
