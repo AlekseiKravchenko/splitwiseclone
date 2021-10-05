@@ -11,16 +11,16 @@ public class Group {
 
     private Long id ;
     private String name;
-    private Set<User> groupMembers;
+    private List<User> groupMembers;
 
 
     public Group(String name,Long id) {
-        this.groupMembers = new HashSet<>();
+        this.groupMembers = new ArrayList<>();
         this.name = name;
         this.id = id;
     }
 
     public void deleteUserFromGroup(Long userId){
-        this.groupMembers.removeIf(user -> user.getId().equals(userId));
+        this.groupMembers.remove(userId);
     }
 }

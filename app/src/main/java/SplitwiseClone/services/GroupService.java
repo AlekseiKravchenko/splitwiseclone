@@ -1,8 +1,7 @@
 package SplitwiseClone.services;
 
 import SplitwiseClone.entity.*;
-import SplitwiseClone.repository.GroupRepository;
-import SplitwiseClone.repository.UserRepository;
+import SplitwiseClone.repository.*;
 import SplitwiseClone.utils.IdGenerator;
 import lombok.*;
 
@@ -27,7 +26,7 @@ public class GroupService {
     }
     public void deleteUserFromGroup(Long groupId, Long userId) {
         if (GroupRepository.groupMap.containsKey(groupId)) {
-            GroupRepository.groupMap.get(groupId).deleteUserFromGroup(userId);
+            GroupRepository.groupMap.get(groupId).getGroupMembers().remove(UserRepository.userMap.get(userId));
         } else {
             System.out.println("This  user does not exist");
         }

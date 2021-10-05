@@ -1,8 +1,8 @@
 package SplitwiseClone.repository;
 
-import SplitwiseClone.entity.*;
-import java.util.*;
+import SplitwiseClone.entity.Expense.Expense;
 
+import java.util.*;
 public class ExpenseRepository {
-    public static Map<Long,Expense> expenseMap = new HashMap<>();
+    public static Map<Long, Expense> expenseMap = new HashMap<>();
 }
