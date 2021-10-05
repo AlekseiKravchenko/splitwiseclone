@@ -32,5 +32,4 @@ test {
 jacocoTestReport {
     dependsOn test
 }
-}
 
