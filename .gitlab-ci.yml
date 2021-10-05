@@ -7,7 +7,6 @@ test:
   script:
     - chmod +x ./gradlew
     - ./gradlew test
-    - cat build/reports/jacoco/test/html/index.html
   artifacts:
     reports:
       junit: build/test-results/test/**.xml
