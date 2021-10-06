@@ -35,7 +35,6 @@ class ExpenseServiceTest {
     void Expense(){
         User user = new User("Aleksei", "Kravchenko", "aswyga@gmail.com",
                 "050 264 80 96",IdGenerator.generateUserId());
-        Map<Long,BigDecimal> percentages = new HashMap<>();
         es.createExpense("Lunch", new BigDecimal("500"), user.getId(), LocalDateTime.now());
         assertEquals(1,er.getAll().size());
     }
@@ -45,11 +44,7 @@ class ExpenseServiceTest {
     void addUserToExpense(){
         User user = new User("Aleksei", "Kravchenko", "aswyga@gmail.com",
                 "050 264 80 96",IdGenerator.generateUserId());
-        User user2 = new User("Aleksei", "Kravchenko", "aswyga@gmail.com",
-                "050 264 80 96",IdGenerator.generateUserId());
-        Map<Long,BigDecimal> percentages = new HashMap<>();
         Expense expense  = es.createExpense("Lunch", new BigDecimal("500"), user.getId(), LocalDateTime.now());
-        assertEquals(1,er.getAll().size());
         es.addUserToExpense(expense.getExpenseId(), user.getId());
         assertEquals(1,er.getFromRepositoryById(expense.getExpenseId()).getExpenseMembers().size());
     }
