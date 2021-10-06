@@ -7,15 +7,16 @@ import lombok.*;
 
 @NoArgsConstructor
 public class UserBalanceService {
+    UserBalancesRepository ubr = new UserBalancesRepository();
     public UserBalance getUserBalance(Long userId) {
       return new UserBalance(userId);
     }
     public void createUserBalance(Long userId){
         UserBalance userBalance = new UserBalance(userId);
-        UserBalancesRepository.userBalances.putIfAbsent(userId,userBalance);
+        ubr.addToRepository(userBalance.getUserBalanceId(),userBalance);
     }
 
     public void deleteUserBalance(Long userId) {
-        UserBalancesRepository.userBalances.remove(userId);
+        ubr.deleteFromRepository(userId);
     }
 }

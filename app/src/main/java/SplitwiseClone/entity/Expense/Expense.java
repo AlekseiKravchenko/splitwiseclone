@@ -10,7 +10,7 @@ import lombok.*;
 @ToString
 @Getter
 @Setter
-abstract public class Expense {
+public abstract class Expense {
     private Map<Long, BigDecimal> amountsOwed = new HashMap<>();
     private Map<Long,BigDecimal> amountsPaid = new HashMap<>();
     private LocalDateTime expenseDayTime;
@@ -19,6 +19,7 @@ abstract public class Expense {
     private String description;
     private Long userPaidById;
     private Long expenseId;
+    UserRepository ur;
 
     protected Expense(String description, BigDecimal amountOfExpense,
                    Long userPaidById,LocalDateTime expenseDayTime, Long id) {
@@ -31,9 +32,10 @@ abstract public class Expense {
     }
 
     public void addMember(Long userId){
-        this.expenseMembers.add(UserRepository.userMap.get(userId));
+        this.expenseMembers.add(ur.getFromRepositoryById(userId));
     }
-    abstract public void calculateExpense();
+
+    public abstract void calculateExpense();
 }
 
 

@@ -9,22 +9,23 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 class UserRepositoryTest {
     UserService us = new UserService();
+    UserRepository ur = new UserRepository();
     @AfterEach
     void deleteData() {
-        UserRepository.userMap.clear();
+        ur.deleteAll();
     }
 
     @Test
     @DisplayName("Test create user and put him to repo")
     void userPutInRepo() {
         User user1 = us.createUser("ololo","ololoev","asdasd@gmail.com","656565");
-        assertEquals(1,UserRepository.userMap.size());
+        assertEquals(1,ur.getAll().size());
     }
     @Test
     @DisplayName("Delete user from repo")
     void deleteUserFromRepo() {
         User user1 = us.createUser("ololo","ololoev","asdasd@gmail.com","656565");
         us.deleteUser(user1.getId());
-        assertEquals(0,UserRepository.userMap.size());
+        assertEquals(0,ur.getAll().size());
     }
 }

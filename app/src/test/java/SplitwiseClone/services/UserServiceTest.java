@@ -8,24 +8,24 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 class UserServiceTest {
-
+    UserRepository ur = new UserRepository();
     UserService userService = new UserService();
     @BeforeEach
     void deleteData(){
-        UserRepository.userMap.clear();
+        ur.deleteAll();
     }
     @Test
     @DisplayName("chek User create with service")
     void createUserWithService() {
         User user = userService.createUser("Aleksei", "Kravchenko", "aswyga@gmail.com", "050 264 80 96");
-        assertEquals(1, UserRepository.userMap.size());
+        assertEquals(1, ur.getAll().size());
     }
     @Test
     @DisplayName("chek User delete with service")
     void deleteUserWithService() {
         User user = userService.createUser("Aleksei", "Kravchenko", "aswyga@gmail.com", "050 264 80 96");
         userService.deleteUser(user.getId());
-        assertEquals(0, UserRepository.userMap.size());
+        assertEquals(0, ur.getAll().size());
     }
     @Test
     @DisplayName("check getting user by ID from repo")

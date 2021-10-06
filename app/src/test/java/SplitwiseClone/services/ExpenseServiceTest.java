@@ -15,15 +15,11 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ExpenseServiceTest {
-    ExpenseService es = new ExpenseService();
+    ExpenseRepository er = new ExpenseRepository();
+    ExpenseService es =  new ExpenseService();
     @BeforeEach
     void deleteData(){
-        GroupRepository.groupMap.clear();
-        UserRepository.userMap.clear();
-        ExpenseRepository.expenseMap.clear();
-        IdGenerator.expenseIdCount = 0L;
-        IdGenerator.groupIdCount = 0L;
-        IdGenerator.userIdCount = 0L;
+        er.deleteAll();
     }
     @Test
     @DisplayName("Create  percent expense and put to repository")
@@ -32,7 +28,7 @@ class ExpenseServiceTest {
                 "050 264 80 96",IdGenerator.generateUserId());
         Map<Long,BigDecimal> percentages = new HashMap<>();
         es.createExpense("Lunch", new BigDecimal("500"), user.getId(), LocalDateTime.now(),percentages);
-        assertEquals(1,ExpenseRepository.expenseMap.size());
+        assertEquals(1,er.getAll().size());
     }
     @Test
     @DisplayName("Create  expense and put to repository")
@@ -41,7 +37,7 @@ class ExpenseServiceTest {
                 "050 264 80 96",IdGenerator.generateUserId());
         Map<Long,BigDecimal> percentages = new HashMap<>();
         es.createExpense("Lunch", new BigDecimal("500"), user.getId(), LocalDateTime.now());
-        assertEquals(1,ExpenseRepository.expenseMap.size());
+        assertEquals(1,er.getAll().size());
     }
 
     @Test
@@ -53,9 +49,9 @@ class ExpenseServiceTest {
                 "050 264 80 96",IdGenerator.generateUserId());
         Map<Long,BigDecimal> percentages = new HashMap<>();
         Expense expense  = es.createExpense("Lunch", new BigDecimal("500"), user.getId(), LocalDateTime.now());
-        assertEquals(1,ExpenseRepository.expenseMap.size());
+        assertEquals(1,er.getAll().size());
         es.addUserToExpense(expense.getExpenseId(), user.getId());
-        assertEquals(1,ExpenseRepository.expenseMap.get(expense.getExpenseId()).getExpenseMembers().size());
+        assertEquals(1,er.getFromRepositoryById(expense.getExpenseId()).getExpenseMembers().size());
     }
     @Test
     @DisplayName("check adding List users to expense")
@@ -72,6 +68,6 @@ class ExpenseServiceTest {
         group.getGroupMembers().add(user3);
         Expense expense  = es.createExpense("Lunch", new BigDecimal("500"), user.getId(), LocalDateTime.now());
         es.addGroupUsersToExpense(group.getId(), expense.getExpenseId());
-        assertEquals(2,ExpenseRepository.expenseMap.get(expense.getExpenseId()).getExpenseMembers().size());
+        assertEquals(2,er.getFromRepositoryById(expense.getExpenseId()).getExpenseMembers().size());
     }
 }

@@ -13,31 +13,34 @@ import java.util.*;
 
 @NoArgsConstructor
 public class ExpenseService {
+    ExpenseRepository er = new ExpenseRepository();
+    UserRepository ur = new UserRepository();
+    GroupRepository gr = new GroupRepository();
         public Expense createExpense(String description, BigDecimal amountOfExpense, Long userPaidById,
                                      LocalDateTime expenseDayTime) {
             Expense expense = new EqualExpense(description,amountOfExpense,userPaidById,
                     expenseDayTime, IdGenerator.generateExpenseId());
-            ExpenseRepository.expenseMap.putIfAbsent(expense.getExpenseId(),expense);
+            er.addToRepository(expense.getExpenseId(),expense);
             return expense;
         }
         public Expense createExpense(String description, BigDecimal amountOfExpense,
                                      Long userPaidById,LocalDateTime expenseDayTime,Map<Long,BigDecimal> percentValues) {
         Expense expense = new PercentExpense(description,amountOfExpense,userPaidById,
                 expenseDayTime, IdGenerator.generateExpenseId(),percentValues);
-        ExpenseRepository.expenseMap.putIfAbsent(expense.getExpenseId(),expense);
+            er.addToRepository(expense.getExpenseId(),expense);
         return expense;
         }
         public void addUserToExpense(Long userId, Long expenseId) {
-            if(ExpenseRepository.expenseMap.containsKey(expenseId)) {
-                ExpenseRepository.expenseMap.get(expenseId).addMember(userId);
+            if(er.contains(expenseId)) {
+                er.getFromRepositoryById(expenseId).getExpenseMembers().add(ur.getFromRepositoryById(userId));
             } else {
                 System.out.println("This expense does not exist");
             }
         }
         public void addGroupUsersToExpense(Long groupId, Long expenseId){
-            if(ExpenseRepository.expenseMap.containsKey(expenseId)){
-                ExpenseRepository.expenseMap.get(expenseId).getExpenseMembers()
-                        .addAll(GroupRepository.groupMap.get(groupId).getGroupMembers());
+            if(er.contains(expenseId)){
+                er.getFromRepositoryById(expenseId).getExpenseMembers()
+                        .addAll(gr.getFromRepositoryById(groupId).getGroupMembers());
             }
         }
 }

@@ -9,24 +9,26 @@ import java.util.*;
 
 @NoArgsConstructor
 public class GroupService {
+    GroupRepository gr = new GroupRepository();
+    UserRepository ur = new UserRepository();
     public Group createGroup(String name) {
         Group group = new Group(name, IdGenerator.generateGroupId());
-        GroupRepository.groupMap.put(group.getId(),group);
+        gr.addToRepository(group.getId(),group);
         return group;
     }
     public void addListUsersToGroup(Long groupId, List<User> users) {
-        if(GroupRepository.groupMap.containsKey(groupId)) {
-            GroupRepository.groupMap.get(groupId).getGroupMembers().addAll(users);
+        if(gr.contains(groupId)) {
+            gr.getFromRepositoryById(groupId).getGroupMembers().addAll(users);
         }
     }
     public void addUserToGroup(Long groupId, Long userId) {
-        if(GroupRepository.groupMap.containsKey(groupId)) {
-            GroupRepository.groupMap.get(groupId).getGroupMembers().add(UserRepository.userMap.get(userId));
+        if(gr.contains(groupId)) {
+            gr.getFromRepositoryById(groupId).getGroupMembers().add(ur.getFromRepositoryById(userId));
         }
     }
     public void deleteUserFromGroup(Long groupId, Long userId) {
-        if (GroupRepository.groupMap.containsKey(groupId)) {
-            GroupRepository.groupMap.get(groupId).getGroupMembers().remove(UserRepository.userMap.get(userId));
+        if (gr.contains(groupId)) {
+            gr.getFromRepositoryById(groupId).getGroupMembers().remove(ur.getFromRepositoryById(userId));
         } else {
             System.out.println("This  user does not exist");
         }

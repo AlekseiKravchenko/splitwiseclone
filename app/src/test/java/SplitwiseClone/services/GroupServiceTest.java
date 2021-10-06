@@ -15,21 +15,20 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GroupServiceTest {
+    GroupRepository gr = new GroupRepository();
+    UserRepository ur = new UserRepository();
     GroupService gp = new GroupService();
     @BeforeEach
     void deleteData(){
-        GroupRepository.groupMap.clear();
-        UserRepository.userMap.clear();
-        IdGenerator.expenseIdCount = 0L;
-        IdGenerator.groupIdCount = 0L;
-        IdGenerator.userIdCount = 0L;
+        gr.deleteAll();
+        ur.deleteAll();
     }
 
     @Test
     @DisplayName("Check create group by Group service")
     void createGroup(){
         gp.createGroup("Co-workers");
-        assertEquals(1,GroupRepository.groupMap.size());
+        assertEquals(1,gr.getAll().size());
     }
     @Test
     @DisplayName("Check adding List users to group")
@@ -41,7 +40,7 @@ class GroupServiceTest {
                 new User("fdsfds","asdasd","dasdas","asdasd",IdGenerator.generateUserId()))
         );
         gp.addListUsersToGroup(group.getId(), users);
-        assertEquals(2,GroupRepository.groupMap.get(group.getId()).getGroupMembers().size());
+        assertEquals(2,gr.getFromRepositoryById(group.getId()).getGroupMembers().size());
     }
 
     @Test
@@ -51,7 +50,7 @@ class GroupServiceTest {
         User user = new User("Aleksei","Kravchenko",
                 "aswyga@gmail.com","0502648096", IdGenerator.generateUserId());
         gp.addUserToGroup(group.getId(), user.getId());
-        assertEquals(1,GroupRepository.groupMap.get(group.getId()).getGroupMembers().size());
+        assertEquals(1,gr.getFromRepositoryById(group.getId()).getGroupMembers().size());
     }
     @Test
     @DisplayName("Delete user from group")
@@ -61,6 +60,6 @@ class GroupServiceTest {
                 "aswyga@gmail.com","0502648096", IdGenerator.generateUserId());
         gp.addUserToGroup(group.getId(), user.getId());
         gp.deleteUserFromGroup(group.getId(), user.getId());
-        assertEquals(0,GroupRepository.groupMap.get(group.getId()).getGroupMembers().size());
+        assertEquals(0,gr.getFromRepositoryById(group.getId()).getGroupMembers().size());
     }
 }
