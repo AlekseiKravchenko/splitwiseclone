@@ -17,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ExpenseServiceTest {
     ExpenseRepository er = new ExpenseRepository();
     ExpenseService es =  new ExpenseService();
+    UserService us = new UserService();
     @BeforeEach
     void deleteData(){
         er.deleteAll();
@@ -42,8 +43,8 @@ class ExpenseServiceTest {
     @Test
     @DisplayName("check adding user to expense")
     void addUserToExpense(){
-        User user = new User("Aleksei", "Kravchenko", "aswyga@gmail.com",
-                "050 264 80 96",IdGenerator.generateUserId());
+        User user = us.createUser("Aleksei", "Kravchenko", "aswyga@gmail.com",
+                "050 264 80 96");
         Expense expense  = es.createExpense("Lunch", new BigDecimal("500"), user.getId(), LocalDateTime.now());
         es.addUserToExpense(expense.getExpenseId(), user.getId());
         assertEquals(1,er.getFromRepositoryById(expense.getExpenseId()).getExpenseMembers().size());
