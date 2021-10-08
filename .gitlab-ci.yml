@@ -9,4 +9,4 @@ test:
     - ./gradlew test
   artifacts:
     reports:
-      junit: app/build/test-results/test/**.xml
+      junit: app/build/test-results/test/TEST-*.xml
