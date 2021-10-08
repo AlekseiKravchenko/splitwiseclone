@@ -13,10 +13,10 @@ public class UserBalanceService {
     }
     public void createUserBalance(Long userId){
         UserBalance userBalance = new UserBalance(userId);
-        ubr.addToRepository(userBalance.getUserBalanceId(),userBalance);
+        ubr.add(userBalance.getUserBalanceId(),userBalance);
     }
 
     public void deleteUserBalance(Long userId) {
-        ubr.deleteFromRepository(userId);
+        ubr.delete(userId);
     }
 }

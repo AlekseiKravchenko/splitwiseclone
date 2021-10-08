@@ -3,16 +3,18 @@ package SplitwiseClone.services;
 import SplitwiseClone.entity.Expense.Expense;
 import SplitwiseClone.entity.Group;
 import SplitwiseClone.entity.User;
-import SplitwiseClone.repository.*;
+import SplitwiseClone.repository.ExpenseRepository;
 import SplitwiseClone.utils.IdGenerator;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ExpenseServiceTest {
     ExpenseRepository er = new ExpenseRepository();
@@ -46,8 +48,8 @@ class ExpenseServiceTest {
         User user = us.createUser("Aleksei", "Kravchenko", "aswyga@gmail.com",
                 "050 264 80 96");
         Expense expense  = es.createExpense("Lunch", new BigDecimal("500"), user.getId(), LocalDateTime.now());
-        es.addUserToExpense(expense.getExpenseId(), user.getId());
-        assertEquals(1,er.getFromRepositoryById(expense.getExpenseId()).getExpenseMembers().size());
+        es.addUserToExpense(user.getId(),expense.getExpenseId());
+        assertEquals(1,er.getById(expense.getExpenseId()).getExpenseMembers().size());
     }
     @Test
     @DisplayName("check adding List users to expense")
@@ -64,6 +66,6 @@ class ExpenseServiceTest {
         group.getGroupMembers().add(user3);
         Expense expense  = es.createExpense("Lunch", new BigDecimal("500"), user.getId(), LocalDateTime.now());
         es.addGroupUsersToExpense(group.getId(), expense.getExpenseId());
-        assertEquals(2,er.getFromRepositoryById(expense.getExpenseId()).getExpenseMembers().size());
+        assertEquals(2,er.getById(expense.getExpenseId()).getExpenseMembers().size());
     }
 }

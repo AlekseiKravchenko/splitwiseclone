@@ -13,22 +13,22 @@ public class GroupService {
     UserRepository ur = new UserRepository();
     public Group createGroup(String name) {
         Group group = new Group(name, IdGenerator.generateGroupId());
-        gr.addToRepository(group.getId(),group);
+        gr.add(group.getId(),group);
         return group;
     }
     public void addListUsersToGroup(Long groupId, List<User> users) {
         if(gr.contains(groupId)) {
-            gr.getFromRepositoryById(groupId).getGroupMembers().addAll(users);
+            gr.getById(groupId).getGroupMembers().addAll(users);
         }
     }
     public void addUserToGroup(Long groupId, Long userId) {
         if(gr.contains(groupId)) {
-            gr.getFromRepositoryById(groupId).getGroupMembers().add(ur.getFromRepositoryById(userId));
+            gr.getById(groupId).getGroupMembers().add(ur.getById(userId));
         }
     }
     public void deleteUserFromGroup(Long groupId, Long userId) {
         if (gr.contains(groupId)) {
-            gr.getFromRepositoryById(groupId).getGroupMembers().remove(ur.getFromRepositoryById(userId));
+            gr.getById(groupId).getGroupMembers().remove(ur.getById(userId));
         } else {
             System.out.println("This  user does not exist");
         }

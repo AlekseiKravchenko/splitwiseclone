@@ -11,15 +11,14 @@ public class UserService {
     UserBalanceService userBalanceService = new UserBalanceService();
     public User createUser(String firstName, String lastName, String email, String phone ) {
         User user = new User(firstName,lastName,email,phone, IdGenerator.generateUserId());
-        us.addToRepository(user.getId(),user);
+        us.add(user.getId(),user);
         userBalanceService.createUserBalance(user.getId());
         return user;
     }
     public void deleteUser(Long userId) {
-        us.deleteFromRepository(userId);
-        userBalanceService.deleteUserBalance(userId);
+        us.delete(userId);
     }
     public User getUserFromRepository(Long userId) {
-       return us.getFromRepositoryById(userId);
+       return us.getById(userId);
     }
 }

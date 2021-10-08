@@ -20,27 +20,27 @@ public class ExpenseService {
                                      LocalDateTime expenseDayTime) {
             Expense expense = new EqualExpense(description,amountOfExpense,userPaidById,
                     expenseDayTime, IdGenerator.generateExpenseId());
-            er.addToRepository(expense.getExpenseId(),expense);
+            er.add(expense.getExpenseId(),expense);
             return expense;
         }
         public Expense createExpense(String description, BigDecimal amountOfExpense,
                                      Long userPaidById,LocalDateTime expenseDayTime,Map<Long,BigDecimal> percentValues) {
         Expense expense = new PercentExpense(description,amountOfExpense,userPaidById,
                 expenseDayTime, IdGenerator.generateExpenseId(),percentValues);
-            er.addToRepository(expense.getExpenseId(),expense);
+            er.add(expense.getExpenseId(),expense);
         return expense;
         }
         public void addUserToExpense(Long userId, Long expenseId) {
             if(er.contains(expenseId)) {
-                er.getFromRepositoryById(expenseId).getExpenseMembers().add(ur.getFromRepositoryById(userId));
+                er.getById(expenseId).getExpenseMembers().add(ur.getById(userId));
             } else {
                 System.out.println("This expense does not exist");
             }
         }
         public void addGroupUsersToExpense(Long groupId, Long expenseId){
             if(er.contains(expenseId)){
-                er.getFromRepositoryById(expenseId).getExpenseMembers()
-                        .addAll(gr.getFromRepositoryById(groupId).getGroupMembers());
+                er.getById(expenseId).getExpenseMembers()
+                        .addAll(gr.getById(groupId).getGroupMembers());
             }
         }
 }

@@ -9,10 +9,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GroupServiceTest {
     GroupRepository gr = new GroupRepository();
@@ -40,7 +41,7 @@ class GroupServiceTest {
                 new User("fdsfds","asdasd","dasdas","asdasd",IdGenerator.generateUserId()))
         );
         gp.addListUsersToGroup(group.getId(), users);
-        assertEquals(2,gr.getFromRepositoryById(group.getId()).getGroupMembers().size());
+        assertEquals(2,gr.getById(group.getId()).getGroupMembers().size());
     }
 
     @Test
@@ -50,7 +51,7 @@ class GroupServiceTest {
         User user = new User("Aleksei","Kravchenko",
                 "aswyga@gmail.com","0502648096", IdGenerator.generateUserId());
         gp.addUserToGroup(group.getId(), user.getId());
-        assertEquals(1,gr.getFromRepositoryById(group.getId()).getGroupMembers().size());
+        assertEquals(1,gr.getById(group.getId()).getGroupMembers().size());
     }
     @Test
     @DisplayName("Delete user from group")
@@ -60,6 +61,6 @@ class GroupServiceTest {
                 "aswyga@gmail.com","0502648096", IdGenerator.generateUserId());
         gp.addUserToGroup(group.getId(), user.getId());
         gp.deleteUserFromGroup(group.getId(), user.getId());
-        assertEquals(0,gr.getFromRepositoryById(group.getId()).getGroupMembers().size());
+        assertEquals(0,gr.getById(group.getId()).getGroupMembers().size());
     }
 }

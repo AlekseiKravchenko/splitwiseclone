@@ -10,26 +10,22 @@ public class UserRepository implements CrudRepository<User> {
     private static final Map<Long, User> userMap = new HashMap<>();
 
     @Override
-    public void addToRepository(Long id, User object) {
+    public void add(Long id, User object) {
         userMap.putIfAbsent(id,object);
     }
 
     @Override
-    public void deleteFromRepository(Long id) {
+    public void delete(Long id) {
         userMap.remove(id);
     }
 
     @Override
-    public User getFromRepositoryById(Long id) {
+    public User getById(Long id) {
         return userMap.get(id);
     }
     @Override
     public List<User> getAll() {
-        List<User> users = new ArrayList<>();
-        for(Map.Entry<Long,User> entry : userMap.entrySet()){
-            users.add(entry.getValue());
-        }
-        return users;
+        return new ArrayList<>(userMap.values());
     }
 
     @Override

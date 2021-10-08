@@ -32,7 +32,7 @@ public abstract class Expense {
     }
 
     public void addMember(Long userId){
-        this.expenseMembers.add(ur.getFromRepositoryById(userId));
+        this.expenseMembers.add(ur.getById(userId));
     }
 
     public abstract void calculateExpense();

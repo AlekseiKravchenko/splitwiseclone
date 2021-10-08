@@ -7,17 +7,17 @@ public class GroupRepository implements CrudRepository<Group>{
     private static final Map<Long, Group>  groupMap = new HashMap<>();
 
     @Override
-    public void addToRepository(Long id, Group object) {
+    public void add(Long id, Group object) {
         groupMap.putIfAbsent(id,object);
     }
 
     @Override
-    public void deleteFromRepository(Long id) {
+    public void delete(Long id) {
         groupMap.remove(id);
     }
 
     @Override
-    public Group getFromRepositoryById(Long id) {
+    public Group getById(Long id) {
         return groupMap.get(id);
     }
 
@@ -33,10 +33,6 @@ public class GroupRepository implements CrudRepository<Group>{
 
     @Override
     public List<Group> getAll() {
-        List<Group> groups = new ArrayList<>();
-        for(Map.Entry<Long,Group> entry : groupMap.entrySet()){
-            groups.add(entry.getValue());
-        }
-        return groups;
+        return new ArrayList<>(groupMap.values());
     }
 }

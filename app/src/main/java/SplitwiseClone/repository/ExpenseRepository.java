@@ -7,17 +7,17 @@ public class ExpenseRepository implements CrudRepository<Expense> {
     private static final Map<Long, Expense> expenseMap = new HashMap<>();
 
     @Override
-    public void addToRepository(Long id, Expense object) {
+    public void add(Long id, Expense object) {
         expenseMap.putIfAbsent(id,object);
     }
 
     @Override
-    public void deleteFromRepository(Long id) {
+    public void delete(Long id) {
         expenseMap.remove(id);
     }
 
     @Override
-    public Expense getFromRepositoryById(Long id) {
+    public Expense getById(Long id) {
         return expenseMap.get(id);
     }
 
@@ -33,10 +33,6 @@ public class ExpenseRepository implements CrudRepository<Expense> {
 
     @Override
     public List<Expense> getAll() {
-        List<Expense> expenseList = new ArrayList();
-        for(Map.Entry<Long,Expense> entry : expenseMap.entrySet()){
-            expenseList.add(entry.getValue());
-        }
-        return expenseList;
+        return new ArrayList<>(expenseMap.values());
     }
 }
