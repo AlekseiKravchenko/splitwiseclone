@@ -11,7 +11,7 @@ public class UserRepository implements CrudRepository<User> {
 
     @Override
     public void add(Long id, User object) {
-        userMap.putIfAbsent(id,object);
+        userMap.put(id,object);
     }
 
     @Override
