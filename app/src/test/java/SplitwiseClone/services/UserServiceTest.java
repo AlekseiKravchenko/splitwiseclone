@@ -20,13 +20,13 @@ class UserServiceTest {
         User user = userService.createUser("Aleksei", "Kravchenko", "aswyga@gmail.com", "050 264 80 96");
         assertEquals(1, ur.getAll().size());
     }
-    @Test
-    @DisplayName("chek User delete with service")
-    void deleteUserWithService() {
-        User user = userService.createUser("Aleksei", "Kravchenko", "aswyga@gmail.com", "050 264 80 96");
-        userService.deleteUser(user.getId());
-        assertEquals(0, ur.getAll().size());
-    }
+//    @Test
+//    @DisplayName("chek User delete with service")
+//    void deleteUserWithService() {
+//        User user = userService.createUser("Aleksei", "Kravchenko", "aswyga@gmail.com", "050 264 80 96");
+//        userService.deleteUser(user.getId());
+//        assertEquals(0, ur.getAll().size());
+//    }
     @Test
     @DisplayName("check getting user by ID from repo")
     void getUserById(){
