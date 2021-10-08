@@ -25,7 +25,7 @@ class UserRepositoryTest {
     @DisplayName("Delete user from repo")
     void deleteUserFromRepo() {
         User user1 = us.createUser("ololo","ololoev","asdasd@gmail.com","656565");
-        us.deleteUser(user1.getId());
+        ur.delete(user1.getId());
         assertEquals(0,ur.getAll().size());
     }
 }
