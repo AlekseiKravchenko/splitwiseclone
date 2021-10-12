@@ -6,8 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
+
 class UserRepositoryTest {
     UserService us;
     UserRepository ur;
@@ -21,7 +21,7 @@ class UserRepositoryTest {
     @DisplayName("Test create user and put him to repo")
     void userPutInRepo() {
         User user1 = us.createUser("ololo","ololoev","asdasd@gmail.com","656565");
-        assertEquals(1,ur.getAll().size());
+        assertTrue(ur.contains(user1.getId()));
     }
     @Test
     @DisplayName("Delete user from repo")
