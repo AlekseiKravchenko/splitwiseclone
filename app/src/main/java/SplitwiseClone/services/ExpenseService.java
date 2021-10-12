@@ -16,20 +16,40 @@ public class ExpenseService {
     ExpenseRepository er = new ExpenseRepository();
     UserRepository ur = new UserRepository();
     GroupRepository gr = new GroupRepository();
-        public Expense createExpense(String description, BigDecimal amountOfExpense, Long userPaidById,
+        public Expense createEqualExpense(String description, BigDecimal amountOfExpense, Long userPaidById,
                                      LocalDateTime expenseDayTime) {
             Expense expense = new EqualExpense(description,amountOfExpense,userPaidById,
                     expenseDayTime, IdGenerator.generateExpenseId());
             er.add(expense.getExpenseId(),expense);
             return expense;
         }
-        public Expense createExpense(String description, BigDecimal amountOfExpense,
+        public Expense createEqualGroupExpense(String description, BigDecimal amountOfExpense, Long userPaidById,
+                                          LocalDateTime expenseDayTime, Long groupId) {
+            Expense expense = new EqualExpense(description,amountOfExpense,userPaidById,
+                    expenseDayTime, IdGenerator.generateExpenseId(),groupId);
+            er.add(expense.getExpenseId(),expense);
+            return expense;
+        }
+
+
+        public Expense createPercentExpense(String description, BigDecimal amountOfExpense,
                                      Long userPaidById,LocalDateTime expenseDayTime,Map<Long,BigDecimal> percentValues) {
         Expense expense = new PercentExpense(description,amountOfExpense,userPaidById,
                 expenseDayTime, IdGenerator.generateExpenseId(),percentValues);
             er.add(expense.getExpenseId(),expense);
         return expense;
         }
+        public Expense createPercentGroupExpense(String description, BigDecimal amountOfExpense,
+                                            Long userPaidById,LocalDateTime expenseDayTime,Map<Long,BigDecimal> percentValues, Long groupId) {
+            Expense expense = new PercentExpense(description,amountOfExpense,userPaidById,
+                    expenseDayTime, IdGenerator.generateExpenseId(),percentValues,groupId);
+            er.add(expense.getExpenseId(),expense);
+            return expense;
+        }
+
+
+
+
         public void addUserToExpense(Long userId, Long expenseId) {
             if(er.contains(expenseId)) {
                 er.getById(expenseId).getExpenseMembers().add(ur.getById(userId));

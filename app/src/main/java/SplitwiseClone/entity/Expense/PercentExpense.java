@@ -1,17 +1,20 @@
 package SplitwiseClone.entity.Expense;
 
+import SplitwiseClone.entity.Debt;
 import SplitwiseClone.entity.User;
-import lombok.*;
+import SplitwiseClone.repository.DebtsRepository;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.Map;
 
 @Getter
 @Setter
 public class PercentExpense extends Expense {
+    DebtsRepository dr = new DebtsRepository();
     private Map<Long,BigDecimal> percentValues;
 
     public PercentExpense(String description, BigDecimal amountOfExpense, Long userPaidById,
@@ -20,24 +23,25 @@ public class PercentExpense extends Expense {
         super(description, amountOfExpense, userPaidById, expenseDayTime,id);
         this.percentValues = percentValues;
     }
-
+    public PercentExpense(String description, BigDecimal amountOfExpense, Long userPaidById,
+                          LocalDateTime expenseDayTime,
+                          Long id,Map<Long,BigDecimal> percentValues, Long groupId) {
+        super(description, amountOfExpense, userPaidById, expenseDayTime,id,groupId);
+        this.percentValues = percentValues;
+    }
     @Override
     public void calculateExpense() {
-        Map<Long,BigDecimal> amountsOwed = new HashMap<>();
-        Map<Long,BigDecimal> amountsPaid = new HashMap<>();
         BigDecimal oneHundred = new BigDecimal("100.00");
         for (User expenseMember : getExpenseMembers()) {
-            if(!getUserPaidById().equals(expenseMember.getId())) {
-                BigDecimal amountOwes = getAmountOfExpense()
-                        .multiply(percentValues.get(expenseMember.getId())).divide(oneHundred,2, RoundingMode.UP);
-                amountsOwed.put(expenseMember.getId(),amountOwes);
+            BigDecimal amountOwes = getAmountOfExpense()
+                    .multiply(percentValues.get(expenseMember.getId())).divide(oneHundred,2, RoundingMode.UP);
+            Debt debt;
+            if(getGroupId() != null) {
+                debt = new Debt(amountOwes, getExpenseId(), getUserPaidById(), getGroupId());
             } else {
-                BigDecimal amountPaid = getAmountOfExpense()
-                        .multiply(percentValues.get(expenseMember.getId())).divide(oneHundred,2,RoundingMode.UP);
-                amountsPaid.put(expenseMember.getId(), amountPaid);
+                debt = new Debt(amountOwes, getExpenseId(), getUserPaidById());
             }
-            setAmountsOwed(amountsOwed);
-            setAmountsPaid(amountsPaid);
+            dr.add(debt.getId(),debt);
         }
     }
 }

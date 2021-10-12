@@ -30,7 +30,7 @@ class ExpenseServiceTest {
         User user = new User("Aleksei", "Kravchenko", "aswyga@gmail.com",
                 "050 264 80 96",IdGenerator.generateUserId());
         Map<Long,BigDecimal> percentages = new HashMap<>();
-        es.createExpense("Lunch", new BigDecimal("500"), user.getId(), LocalDateTime.now(),percentages);
+        es.createPercentExpense("Lunch", new BigDecimal("500"), user.getId(), LocalDateTime.now(),percentages);
         assertEquals(1,er.getAll().size());
     }
     @Test
@@ -38,7 +38,7 @@ class ExpenseServiceTest {
     void Expense(){
         User user = new User("Aleksei", "Kravchenko", "aswyga@gmail.com",
                 "050 264 80 96",IdGenerator.generateUserId());
-        es.createExpense("Lunch", new BigDecimal("500"), user.getId(), LocalDateTime.now());
+        es.createEqualExpense("Lunch", new BigDecimal("500"), user.getId(), LocalDateTime.now());
         assertEquals(1,er.getAll().size());
     }
 
@@ -47,7 +47,7 @@ class ExpenseServiceTest {
     void addUserToExpense(){
         User user = us.createUser("Aleksei", "Kravchenko", "aswyga@gmail.com",
                 "050 264 80 96");
-        Expense expense  = es.createExpense("Lunch", new BigDecimal("500"), user.getId(), LocalDateTime.now());
+        Expense expense  = es.createEqualExpense("Lunch", new BigDecimal("500"), user.getId(), LocalDateTime.now());
         es.addUserToExpense(user.getId(),expense.getExpenseId());
         assertEquals(1,er.getById(expense.getExpenseId()).getExpenseMembers().size());
     }
@@ -64,7 +64,7 @@ class ExpenseServiceTest {
         Group group = gp.createGroup("Co-Workers");
         group.getGroupMembers().add(user2);
         group.getGroupMembers().add(user3);
-        Expense expense  = es.createExpense("Lunch", new BigDecimal("500"), user.getId(), LocalDateTime.now());
+        Expense expense  = es.createEqualExpense("Lunch", new BigDecimal("500"), user.getId(), LocalDateTime.now());
         es.addGroupUsersToExpense(group.getId(), expense.getExpenseId());
         assertEquals(2,er.getById(expense.getExpenseId()).getExpenseMembers().size());
     }

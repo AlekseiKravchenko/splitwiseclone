@@ -2,17 +2,19 @@ package SplitwiseClone.repository;
 
 import SplitwiseClone.entity.User;
 import SplitwiseClone.services.UserService;
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 class UserRepositoryTest {
-    UserService us = new UserService();
-    UserRepository ur = new UserRepository();
-    @AfterEach
+    UserService us;
+    UserRepository ur;
+    @BeforeEach
     void deleteData() {
-        ur.deleteAll();
+        us = new UserService();
+        ur = new UserRepository();
     }
 
     @Test
