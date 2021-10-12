@@ -3,6 +3,7 @@ package SplitwiseClone.entity.Expense;
 import SplitwiseClone.entity.Debt;
 import SplitwiseClone.entity.User;
 import SplitwiseClone.repository.DebtsRepository;
+import SplitwiseClone.utils.IdGenerator;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,12 +26,13 @@ public class EqualExpense extends Expense {
     public void calculateExpense() {
         Debt debt;
         BigDecimal count = new BigDecimal(getExpenseMembers().size());
-        BigDecimal amountOwes = getAmountOfExpense().divide(count,2, RoundingMode.UP);
+
         for (User expenseMember : getExpenseMembers()) {
+            BigDecimal amountOwes = getAmountOfExpense().divide(count,2, RoundingMode.UP);
             if(getGroupId() != null) {
-                debt = new Debt(amountOwes, getExpenseId(), getUserPaidById(), getGroupId());
+                debt = new Debt(amountOwes, getExpenseId(), expenseMember.getId(), IdGenerator.generateDebtId(), getGroupId());
             } else {
-                debt = new Debt(amountOwes, getExpenseId(), getUserPaidById());
+                debt = new Debt(amountOwes, getExpenseId(),IdGenerator.generateDebtId(), expenseMember.getId());
             }
             dr.add(debt.getId(),debt);
         }

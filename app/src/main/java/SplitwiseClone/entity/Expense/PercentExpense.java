@@ -3,6 +3,7 @@ package SplitwiseClone.entity.Expense;
 import SplitwiseClone.entity.Debt;
 import SplitwiseClone.entity.User;
 import SplitwiseClone.repository.DebtsRepository;
+import SplitwiseClone.utils.IdGenerator;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -37,9 +38,9 @@ public class PercentExpense extends Expense {
                     .multiply(percentValues.get(expenseMember.getId())).divide(oneHundred,2, RoundingMode.UP);
             Debt debt;
             if(getGroupId() != null) {
-                debt = new Debt(amountOwes, getExpenseId(), getUserPaidById(), getGroupId());
+                debt = new Debt(amountOwes, getExpenseId(), expenseMember.getId(), IdGenerator.generateDebtId(), getGroupId());
             } else {
-                debt = new Debt(amountOwes, getExpenseId(), getUserPaidById());
+                debt = new Debt(amountOwes, getExpenseId(),IdGenerator.generateDebtId(), expenseMember.getId());
             }
             dr.add(debt.getId(),debt);
         }

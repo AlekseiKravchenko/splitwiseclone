@@ -12,15 +12,17 @@ public class Debt {
     private Long userId;
     private Long id;
 
-    public Debt(BigDecimal amount, Long expenseId, Long userId){
+    public Debt(BigDecimal amount, Long expenseId,Long id, Long userId){
         this.expenseId = expenseId;
         this.amount = amount;
         this.userId = userId;
+        this.id = id;
     }
-    public Debt(BigDecimal amount, Long expenseId, Long userId, Long groupId){
+    public Debt(BigDecimal amount, Long expenseId, Long userId,Long id, Long groupId){
         this.expenseId = expenseId;
         this.groupId = groupId;
         this.amount = amount;
         this.userId = userId;
+        this.id = id;
     }
 }
