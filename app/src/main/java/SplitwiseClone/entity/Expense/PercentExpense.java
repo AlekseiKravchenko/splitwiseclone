@@ -35,20 +35,5 @@ public class PercentExpense extends Expense {
         super(description, amountOfExpense, userPaidById, expenseDayTime,id,groupId);
         this.percentValues = percentValues;
     }
-//    public void calculateExpense() {
-//        BigDecimal oneHundred = new BigDecimal("100.00");
-//        for (User expenseMember : getExpenseMembers()) {
-//            BigDecimal amountOwes = getAmountOfExpense()
-//                    .multiply(percentValues.get(expenseMember.getId())).divide(oneHundred,2, RoundingMode.UP);
-//            Debt debt;
-//            if(getGroupId() != null) {
-//                debt = new Debt(amountOwes, getExpenseId(), expenseMember.getId(), IdGenerator.generateDebtId(),
-//                        getGroupId());
-//            } else {
-//                debt = new Debt(amountOwes, getExpenseId(),IdGenerator.generateDebtId(), expenseMember.getId());
-//            }
-//            dr.add(debt.getId(),debt);
-//        }
-//    }
 }
 

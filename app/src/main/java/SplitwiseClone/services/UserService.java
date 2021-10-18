@@ -13,7 +13,6 @@ public class UserService {
     public User create(String firstName, String lastName, String email, String phone ) {
         User user = new User(firstName,lastName,email,phone, IdGenerator.generateUserId());
         userRepository.add(user.getId(),user);
-//        userBalanceService.createUserBalance(user.getId());
         return user;
     }
 
