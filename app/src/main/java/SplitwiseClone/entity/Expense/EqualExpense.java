@@ -1,14 +1,10 @@
 package SplitwiseClone.entity.Expense;
 
-import SplitwiseClone.entity.Debt;
-import SplitwiseClone.entity.User;
 import SplitwiseClone.repository.DebtsRepository;
-import SplitwiseClone.utils.IdGenerator;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDateTime;
 
 @Getter
@@ -22,19 +18,18 @@ public class EqualExpense extends Expense {
         super(description, amountOfExpense, userPaidById, expenseDayTime, id,groupId);
     }
 
-    @Override
-    public void calculateExpense() {
-        Debt debt;
-        BigDecimal count = new BigDecimal(getExpenseMembers().size());
-
-        for (User expenseMember : getExpenseMembers()) {
-            BigDecimal amountOwes = getAmountOfExpense().divide(count,2, RoundingMode.UP);
-            if(getGroupId() != null) {
-                debt = new Debt(amountOwes, getExpenseId(), expenseMember.getId(), IdGenerator.generateDebtId(), getGroupId());
-            } else {
-                debt = new Debt(amountOwes, getExpenseId(),IdGenerator.generateDebtId(), expenseMember.getId());
-            }
-            dr.add(debt.getId(),debt);
-        }
-    }
+//    public void calculateExpense() {
+//        Debt debt;
+//        BigDecimal count = new BigDecimal(getExpenseMembers().size());
+//
+//        for (User expenseMember : getExpenseMembers()) {
+//            BigDecimal amountOwes = getAmountOfExpense().divide(count,2, RoundingMode.UP);
+//            if(getGroupId() != null) {
+//                debt = new Debt(amountOwes, getExpenseId(), expenseMember.getId(), IdGenerator.generateDebtId(), getGroupId());
+//            } else {
+//                debt = new Debt(amountOwes, getExpenseId(),IdGenerator.generateDebtId(), expenseMember.getId());
+//            }
+//            dr.add(debt.getId(),debt);
+//        }
+//    }
 }

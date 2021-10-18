@@ -1,8 +1,5 @@
 package SplitwiseClone.utils;
 
-
-import lombok.NoArgsConstructor;
-@NoArgsConstructor
 public final  class IdGenerator {
      private static Long userIdCount = 0L;
      private static Long groupIdCount = 0L;

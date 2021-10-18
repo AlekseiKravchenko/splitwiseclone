@@ -2,7 +2,6 @@ package SplitwiseClone.entity;
 
 import lombok.*;
 
-@ToString
 @Getter
 @Setter
 public class User {

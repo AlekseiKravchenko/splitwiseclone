@@ -20,13 +20,13 @@ class UserRepositoryTest {
     @Test
     @DisplayName("Test create user and put him to repo")
     void userPutInRepo() {
-        User user1 = us.createUser("ololo","ololoev","asdasd@gmail.com","656565");
+        User user1 = us.create("ololo","ololoev","asdasd@gmail.com","656565");
         assertTrue(ur.contains(user1.getId()));
     }
     @Test
     @DisplayName("Delete user from repo")
     void deleteUserFromRepo() {
-        User user1 = us.createUser("ololo","ololoev","asdasd@gmail.com","656565");
+        User user1 = us.create("ololo","ololoev","asdasd@gmail.com","656565");
         ur.delete(user1.getId());
         assertFalse(ur.getAll().contains(user1));
     }

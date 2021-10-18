@@ -6,12 +6,8 @@ import java.math.BigDecimal;
 import java.util.*;
 @Getter
 @Setter
+@AllArgsConstructor
 public class UserBalance {
-    Long userBalanceId;
-    Map<Long,BigDecimal> balanceWithUsers;
-
-    public UserBalance(Long userBalanceId){
-        this.userBalanceId = userBalanceId;
-        this.balanceWithUsers = new HashMap<>();
-    }
+    private Long userBalanceId;
+    private Map<Long,BigDecimal> balanceWithUsers;
 }

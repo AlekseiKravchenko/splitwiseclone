@@ -1,17 +1,14 @@
 package SplitwiseClone.entity.Expense;
 
 import SplitwiseClone.entity.User;
-import SplitwiseClone.repository.UserRepository;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@ToString
 @Getter
 @Setter
 public abstract class Expense {
@@ -22,7 +19,6 @@ public abstract class Expense {
     private Long userPaidById;
     private Long expenseId;
     private Long groupId;
-    UserRepository ur;
 
     protected Expense(String description, BigDecimal amountOfExpense,
                    Long userPaidById,LocalDateTime expenseDayTime, Long expenseId) {
@@ -43,7 +39,6 @@ public abstract class Expense {
         this.expenseId = expenseId ;
         this.groupId = groupId;
     }
-    public abstract void calculateExpense();
 }
 
 
