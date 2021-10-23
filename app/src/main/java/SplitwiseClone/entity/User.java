@@ -1,21 +1,21 @@
 package SplitwiseClone.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
 public class User {
-    private Long id;
     private String firstName;
     private String lastName;
     private String email;
     private String phone;
+    private Long id;
 
-    public User(String firstName, String lastName, String email, String phone,Long id) {
+    public User(String firstName, String lastName, String email, String phone) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.phone = phone;
         this.email = email;
-        this.id = id;
+        this.phone = phone;
     }
 }

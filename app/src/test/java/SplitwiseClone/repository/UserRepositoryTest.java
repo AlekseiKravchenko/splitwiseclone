@@ -9,25 +9,27 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserRepositoryTest {
-    UserService us;
-    UserRepository ur;
+    UserService userService;
+    UserRepository userRepository;
+
     @BeforeEach
     void deleteData() {
-        us = new UserService();
-        ur = new UserRepository();
+        userService = new UserService();
+        userRepository = new UserRepository();
     }
 
     @Test
     @DisplayName("Test create user and put him to repo")
     void userPutInRepo() {
-        User user1 = us.create("ololo","ololoev","asdasd@gmail.com","656565");
-        assertTrue(ur.contains(user1.getId()));
+        User user1 = userService.create("ololo", "ololoev", "asdasd@gmail.com", "656565");
+        assertTrue(userRepository.contains(user1.getId()));
     }
+
     @Test
     @DisplayName("Delete user from repo")
     void deleteUserFromRepo() {
-        User user1 = us.create("ololo","ololoev","asdasd@gmail.com","656565");
-        ur.delete(user1.getId());
-        assertFalse(ur.getAll().contains(user1));
+        User user1 = userService.create("ololo", "ololoev", "asdasd@gmail.com", "656565");
+        userRepository.delete(user1.getId());
+        assertFalse(userRepository.getAll().contains(user1));
     }
 }

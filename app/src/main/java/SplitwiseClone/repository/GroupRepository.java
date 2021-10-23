@@ -1,14 +1,20 @@
 package SplitwiseClone.repository;
 
-import SplitwiseClone.entity.*;
-import java.util.*;
+import SplitwiseClone.entity.Group;
+import SplitwiseClone.utils.IdGenerator;
 
-public class GroupRepository implements CrudRepository<Group>{
-    private static final Map<Long, Group>  groupMap = new HashMap<>();
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class GroupRepository implements CrudRepository<Group> {
+    private static final Map<Long, Group> groupMap = new HashMap<>();
 
     @Override
-    public void add(Long id, Group object) {
-        groupMap.putIfAbsent(id,object);
+    public void add(Group object) {
+        object.setId(IdGenerator.generateDebtId());
+        groupMap.putIfAbsent(object.getId(), object);
     }
 
     @Override

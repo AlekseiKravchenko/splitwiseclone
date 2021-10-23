@@ -2,7 +2,6 @@ package SplitwiseClone.services;
 
 import SplitwiseClone.entity.User;
 import SplitwiseClone.repository.UserRepository;
-import SplitwiseClone.utils.IdGenerator;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -10,9 +9,9 @@ public class UserService {
     private final UserRepository userRepository = new UserRepository();
     private final UserBalanceService userBalanceService = new UserBalanceService();
 
-    public User create(String firstName, String lastName, String email, String phone ) {
-        User user = new User(firstName,lastName,email,phone, IdGenerator.generateUserId());
-        userRepository.add(user.getId(),user);
+    public User create(String firstName, String lastName, String email, String phone) {
+        User user = new User(firstName, lastName, email, phone);
+        userRepository.add(user);
         return user;
     }
 
@@ -21,6 +20,6 @@ public class UserService {
     }
 
     public User getFromRepository(Long userId) {
-       return userRepository.getById(userId);
+        return userRepository.getById(userId);
     }
 }

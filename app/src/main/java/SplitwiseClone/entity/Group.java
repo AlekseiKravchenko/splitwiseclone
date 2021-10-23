@@ -10,14 +10,13 @@ import java.util.List;
 @Setter
 public class Group {
 
-    private Long id ;
+    private Long id;
     private String name;
     private List<User> groupMembers;
 
 
-    public Group(String name,Long id) {
-        this.groupMembers = new ArrayList<>();
+    public Group(String name) {
         this.name = name;
-        this.id = id;
+        this.groupMembers = new ArrayList<>();
     }
 }

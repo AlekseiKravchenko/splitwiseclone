@@ -1,17 +1,22 @@
 package SplitwiseClone.repository;
 
 import SplitwiseClone.entity.User;
+import SplitwiseClone.utils.IdGenerator;
 import lombok.NoArgsConstructor;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @NoArgsConstructor
 public class UserRepository implements CrudRepository<User> {
     private static final Map<Long, User> userMap = new HashMap<>();
 
     @Override
-    public void add(Long id, User object) {
-        userMap.put(id,object);
+    public void add(User object) {
+        object.setId(IdGenerator.generateDebtId());
+        userMap.put(object.getId(), object);
     }
 
     @Override
@@ -23,6 +28,7 @@ public class UserRepository implements CrudRepository<User> {
     public User getById(Long id) {
         return userMap.get(id);
     }
+
     @Override
     public List<User> getAll() {
         return new ArrayList<>(userMap.values());
